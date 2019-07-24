@@ -2,6 +2,7 @@ import logging
 import os
 
 import aiohttp
+import asyncio
 from typing import Any, Optional, Text, Dict
 
 from sanic.request import Request
@@ -147,7 +148,7 @@ class EndpointConfig(object):
                     raise ClientResponseError(
                         resp.status, resp.reason, await resp.content.read()
                     )
-                return await getattr(resp, return_method)()
+                return await asyncio.shield(getattr(resp, return_method)())
 
     @classmethod
     def from_dict(cls, data):
