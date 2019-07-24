@@ -2,7 +2,6 @@ import logging
 import os
 
 import aiohttp
-from aiojobs.aiohttp import atomic
 from typing import Any, Optional, Text, Dict
 
 from sanic.request import Request
@@ -113,7 +112,6 @@ class EndpointConfig(object):
             del kwargs["params"]
         return params
 
-    @atomic
     async def request(
         self,
         method: Text = "post",
